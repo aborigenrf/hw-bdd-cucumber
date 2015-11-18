@@ -104,13 +104,7 @@ end
 
 Then /^(?:|I )should see "([^"]*)"$/ do |text|
   text.split(',').each do |movie|
-    if page.respond_to? :should
-      #page.should have_content(movie)
-      expect(page).to have_content(movie)
-    else
-      assert page.has_content?(movie)
-    end
-  
+     expect(page).to have_content(movie)
   end
   #byebug
   #if page.respond_to? :should
@@ -132,20 +126,11 @@ end
 
 Then /^(?:|I )should not see "([^"]*)"$/ do |text|
   text.split(',').each do |movie|
-    if page.respond_to? :should
-      #page.should have_content(movie)
-      expect(page).not_to have_content(movie)
-      #expect(page).not_to 
-    else
-      assert page.has_content?(movie)
-    end
+    expect(page).not_to have_content(movie)
   end
-  #if page.respond_to? :should
-    #page.should have_no_content(text)
-  #else
-    #assert page.has_no_content?(text)
-  #end
 end
+  
+
 
 Then /^(?:|I )should not see \/([^\/]*)\/$/ do |regexp|
   regexp = Regexp.new(regexp)

@@ -4,13 +4,16 @@ Given /the following movies exist/ do |movies_table|
   end
 end
 
+When /"I follow (.*)"/ do |sort_choice|
+  if sort_choice == "Movie Title"
+    click_on("Release Date")
+  elsif sort_choice == "Movie Title" 
+    click_on("release_date_header")
+  end
+end
+
 Then /I should see "(.*)" before "(.*)"/ do |e1, e2|
-   if page.body =~ /#{e1}.*#{e2}/m
-    puts "#{e1} is before #{e2}"
-  else 
-    puts "#{e1} was not before #{e2}"
-  end  
-  
+   (page.body =~ /#{e1}/m) < (page.body =~ /#{e2}/m)
 end
 
 When /I (un)?check the following ratings: (.*)/ do |uncheck, rating_list|
