@@ -103,11 +103,21 @@ When /^(?:|I )attach the file "([^"]*)" to "([^"]*)"$/ do |path, field|
 end
 
 Then /^(?:|I )should see "([^"]*)"$/ do |text|
-  if page.respond_to? :should
-    page.should have_content(text)
-  else
-    assert page.has_content?(text)
+  text.split(',').each do |movie|
+    if page.respond_to? :should
+      #page.should have_content(movie)
+      expect(page).to have_content(movie)
+    else
+      assert page.has_content?(movie)
+    end
+  
   end
+  #byebug
+  #if page.respond_to? :should
+   # page.should have_content(text)
+  #else
+    #assert page.has_content?(text)
+  #end
 end
 
 Then /^(?:|I )should see \/([^\/]*)\/$/ do |regexp|
@@ -121,11 +131,20 @@ Then /^(?:|I )should see \/([^\/]*)\/$/ do |regexp|
 end
 
 Then /^(?:|I )should not see "([^"]*)"$/ do |text|
-  if page.respond_to? :should
-    page.should have_no_content(text)
-  else
-    assert page.has_no_content?(text)
+  text.split(',').each do |movie|
+    if page.respond_to? :should
+      #page.should have_content(movie)
+      expect(page).not_to have_content(movie)
+      #expect(page).not_to 
+    else
+      assert page.has_content?(movie)
+    end
   end
+  #if page.respond_to? :should
+    #page.should have_no_content(text)
+  #else
+    #assert page.has_no_content?(text)
+  #end
 end
 
 Then /^(?:|I )should not see \/([^\/]*)\/$/ do |regexp|
